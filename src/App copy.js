@@ -1,10 +1,19 @@
 import { useState } from "react";
 import { iceCreamData } from "./iceCreamData";
-import FaqsAccordion from "./FaqsAccordion";
-import Footer from "./Footer";
 
 export default function App() {
   const [count, setCount] = useState({});
+  const selectedItems = [];
+
+  const totalAmount = Object.keys(count).reduce((sum, flavor) => {
+    const quantity = count[flavor];
+    const iceCream = iceCreamData.find((ice) => ice.flavor === flavor);
+    return sum + iceCream.price * quantity;
+  }, 0);
+
+  const totalQuantity = Object.values(count).reduce((a, b) => {
+    return a + b;
+  }, 0);
 
   function countDec(flavor) {
     setCount((prevCount) => ({
@@ -22,29 +31,27 @@ export default function App() {
 
   function addToCart() {
     console.log(count);
-    setCount(0);
   }
 
   return (
     <div className="container-fluid app">
-      <Header />
+      <Header totalAmount={totalAmount} totalQuantity={totalQuantity} />
       <Menu
         count={count}
         countDec={countDec}
         countInc={countInc}
         onAddToCart={addToCart}
       />
-      <FaqsAccordion />
       <Footer />
     </div>
   );
 }
 
-function Header() {
+function Header({ totalAmount, totalQuantity }) {
   return (
     <div className="d-flex justify-content-between bg--gradient my-3 p-3 header">
       <Logo />
-      <Cart />
+      <Cart totalAmount={totalAmount} totalQuantity={totalQuantity} />
     </div>
   );
 }
@@ -57,7 +64,7 @@ function Logo() {
   );
 }
 
-function Cart() {
+function Cart({ totalAmount, totalQuantity }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function handleModalOpen() {
@@ -71,15 +78,15 @@ function Cart() {
   return (
     <div>
       <div className="d-flex">
-        {/* <div className="m-auto px-3">
-          <p>X ice cream</p>
-          <p>total € X</p>
-        </div> */}
+        <div className="m-auto px-3">
+          <p>{totalQuantity} ice cream</p>
+          <p>total € {totalAmount}</p>
+        </div>
         <button
           className="p-3 cart--icon border-0 bg-transparent"
           onClick={handleModalOpen}
         >
-          🛒🧺
+          🛒
         </button>
       </div>
       {modalIsOpen && <Modal onModalClose={handleModalClose} />}
@@ -135,6 +142,8 @@ function Menu({ count, countDec, countInc, onAddToCart }) {
 }
 
 function IceCream({ ice, count, countDec, countInc, onAddToCart }) {
+  const totalAmount = count * ice.price;
+
   return (
     <div>
       <div className="card ice-cream--card">
@@ -155,10 +164,14 @@ function IceCream({ ice, count, countDec, countInc, onAddToCart }) {
             </span>
           </div>
           <button className="btn bg--gradient border-0" onClick={onAddToCart}>
-            Add to Cart
+            € {totalAmount} | Add to Cart
           </button>
         </div>
       </div>
     </div>
   );
+}
+
+function Footer() {
+  return <div className="footer bg--gradient my-3"></div>;
 }
