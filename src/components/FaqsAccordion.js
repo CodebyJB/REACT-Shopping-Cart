@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { faqs } from "./faqs";
+import { faqData } from "../faqData";
 
 export default function FaqsAccordion() {
   const [openFaqIndex, setOpenFaqIndex] = useState(-1);
@@ -11,7 +11,7 @@ export default function FaqsAccordion() {
   return (
     <div className="my-3 p-5">
       <h1 className="color--pink">Faqs</h1>
-      {faqs.map((faq, index) => (
+      {faqData.map((faq, index) => (
         <Faq
           faq={faq}
           key={faq.question}

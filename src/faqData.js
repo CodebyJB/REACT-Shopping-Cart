@@ -1,4 +1,4 @@
-export const faqs = [
+export const faqData = [
   {
     question: "How do you ship ice cream?",
     answer:
