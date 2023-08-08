@@ -5,6 +5,7 @@ export const iceCreamData = [
     unit: "500 ml",
     price: 8,
     img: "../img/choclate.jpg",
+    category: "Ice Cream",
   },
   {
     flavor: "Strawberry",
@@ -12,6 +13,7 @@ export const iceCreamData = [
     unit: "500 ml",
     price: 8,
     img: "../img/strawberry.jpg",
+    category: "Ice Cream",
   },
   {
     flavor: "Coffee",
@@ -19,6 +21,7 @@ export const iceCreamData = [
     unit: "500 ml",
     price: 8,
     img: "../img/coffee.jpg",
+    category: "Ice Cream",
   },
   {
     flavor: "Peach",
@@ -26,6 +29,7 @@ export const iceCreamData = [
     unit: "popsicle",
     price: 3,
     img: "../img/peach.jpg",
+    category: "Popsicle"
   },
   {
     flavor: "Berry",
@@ -33,6 +37,7 @@ export const iceCreamData = [
     unit: "popsicle",
     price: 3,
     img: "../img/berry.jpg",
+    category: "Popsicle"
   },
   {
     flavor: "Mango",
@@ -40,5 +45,6 @@ export const iceCreamData = [
     unit: "popsicle",
     price: 3,
     img: "../img/mango.jpg",
+    category: "Popsicle"
   },
 ];

@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Modal } from "./Modal";
 
-export function Cart({ totalIceCreams, totalAmount, selectedItems }) {
+export function Cart({
+  totalIceCreams,
+  totalAmount,
+  selectedItems,
+  onDeleteItem,
+}) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function handleModalOpen() {
@@ -15,7 +20,7 @@ export function Cart({ totalIceCreams, totalAmount, selectedItems }) {
   return (
     <div>
       <div className="d-flex">
-        <div className="m-auto py-4">
+        <div className="m-auto py-4 px-2">
           <h3>{totalIceCreams}x ice cream</h3>
           <h3>€ {totalAmount} total</h3>
         </div>
@@ -27,7 +32,11 @@ export function Cart({ totalIceCreams, totalAmount, selectedItems }) {
         </button>
       </div>
       {modalIsOpen && (
-        <Modal onModalClose={handleModalClose} selectedItems={selectedItems} />
+        <Modal
+          onModalClose={handleModalClose}
+          selectedItems={selectedItems}
+          onDeleteItem={onDeleteItem}
+        />
       )}
     </div>
   );

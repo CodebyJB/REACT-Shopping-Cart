@@ -3,10 +3,12 @@ import FaqsAccordion from "./FaqsAccordion";
 import Footer from "./Footer";
 import { Header } from "./Header";
 import { Menu } from "./Menu";
+import { useLocalStorage } from "./useLocalStorage";
 
 export default function App() {
   const [iceCreamCount, setIceCreamCount] = useState({});
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useLocalStorage([], "cart");
+
   const totalIceCreams = selectedItems.reduce(
     (total, item) => total + item.quantity,
     0
@@ -31,6 +33,8 @@ export default function App() {
   }
 
   function addToCart(quantity, flavor, price) {
+    if (!quantity) return;
+
     setSelectedItems((prevSelected) => [
       ...prevSelected,
       { quantity, flavor, price, total: quantity * price },
@@ -42,12 +46,17 @@ export default function App() {
     }));
   }
 
+  function handleDeleteItem(flavor) {
+    setSelectedItems((items) => items.filter((item) => item.flavor !== flavor));
+  }
+
   return (
     <div className="container-fluid app">
       <Header
         totalIceCreams={totalIceCreams}
         totalAmount={totalAmount}
         selectedItems={selectedItems}
+        onDeleteItem={handleDeleteItem}
       />
       <Menu
         iceCreamCount={iceCreamCount}
